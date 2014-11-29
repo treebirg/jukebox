@@ -1,0 +1,27 @@
+{
+  "name": "jukebox",
+  "version": "0.0.0",
+  "description": "node.js jukebox",
+  "main": "app.js",
+  "dependencies": {
+    "multer": "~0.1.6",
+    "player": "~0.1.8",
+    "express": "~4.10.4",
+    "lame": "~1.1.1",
+    "body-parser": "~1.9.3",
+    "connect-busboy": "~0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/treebirg/jukebox.git"
+  },
+  "author": "treebirg",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/treebirg/jukebox/issues"
+  }
+}
