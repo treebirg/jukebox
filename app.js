@@ -3,18 +3,27 @@ var Player = require('player');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var multer = require('multer');
+//var player = new Player('./playlist/Kalimba.mp3');
 
-var player = new Player('./playlist/Kalimba.mp3');
+
+var playlist = fs.readdirSync('./playlist');
+for(var i =0;i<playlist.length;i++)
+{
+	playlist[i] = "./playlist/"+playlist[i];
+}
+
+var player = new Player(playlist);
 
 
 // parse application/x-www-form-urlencoded
- app.use(bodyParser.urlencoded({
+app.use(bodyParser.urlencoded({
   extended: true
 }));
 
 // parse application/json
 app.use(bodyParser.json())
-
+app.use(multer({ dest: './tmp/'}));
 
 app.get('/', function(req, res){
 	res.send('hello world');
@@ -39,12 +48,15 @@ app.get('/next', function(req,res){
 });
 app.post('/add',function(req,res){
 	fs.readFile(req.files.song.path, function (err, data) {
-       		var newPath ="/playlist/"+req.files.song.name+".mp3";
+       		var newPath ="./playlist/"+req.files.song.originalname+".mp3";
         	fs.writeFile(newPath, data, function (err) {
   	      		console.log("Added song!");
+			player.add(newPath);
 			res.end();
              	});
         });
+	console.log(req.files);
+	res.end();
 });
 app.get('/add_sample',function(req,res){
 	player.add('./playlist/Sleep Away.mp3');
